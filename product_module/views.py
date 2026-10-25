@@ -9,8 +9,8 @@ def product_list(request):
 
 
 
-def product_detail(request, pk, slug ):
-    product = Product.objects.get(id=pk)
+def product_detail(request, slug ):
+    product = Product.objects.get(slug=slug)
     context = {
         'product': product
         }
