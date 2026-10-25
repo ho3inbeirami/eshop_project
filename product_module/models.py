@@ -14,7 +14,7 @@ class Product(models.Model):
         , default=0)
     short_description = models.CharField(max_length=400, null= True)
 
-    slug= models.SlugField(default='', null=False,unique=True)
+    slug= models.SlugField(default='', null=False,unique=True, db_index=True)
     
     
     def get_absolute_url(self):
