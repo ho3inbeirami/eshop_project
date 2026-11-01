@@ -3,6 +3,28 @@ from . import forms
 from django.urls import reverse
 # Create your views here.
 from . import models 
+from django.views import View
+
+
+class ContactUsView(View):
+    def get(self,request):
+        contact_form = forms.ContactUsModelForm()
+        context  = {'contact_form':contact_form}
+        return render(request, 'ContactUs_module/contactus_page.html',context)
+    
+    def post(self,request):
+        contact_form = forms.ContactUsModelForm(request.POST)
+        if contact_form.is_valid():
+            print(contact_form.cleaned_data)
+            contact_form.save()
+            return redirect(reverse('home_page'))
+        else:
+            context  = {'contact_form':contact_form}
+            return render(request, 'ContactUs_module/contactus_page.html',context)
+
+
+
+
 
 def ContactUs(request):
     if request.method == "POST":
