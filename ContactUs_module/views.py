@@ -4,6 +4,20 @@ from django.urls import reverse
 # Create your views here.
 from . import models 
 from django.views import View
+from django.views.generic.edit import FormView
+
+
+class ContactUsFormView(FormView):
+    template_name = 'ContactUs_module/contactus_page.html'
+    form_class = forms.ContactUsModelForm
+    success_url = '/'
+    
+    def form_valid(self, form):
+        form.save()
+        print('form saved !!!')
+        return super().form_valid(form)
+    
+
 
 
 class ContactUsView(View):

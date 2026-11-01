@@ -19,20 +19,20 @@
                     <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
                         {% csrf_token %}
                             <div class="form-group col-md-6">
-                                {{contact_form.email}}
+                                {{form.email}}
                             </div>
 
                             <div class="form-group col-md-6">
-                                {{contact_form.full_name}}
+                                {{form.full_name}}
                             </div>
 
                             <div class="form-group col-md-12">
-                                {{contact_form.title}}
+                                {{form.title}}
                             </div>
 
                             <div class="form-group col-md-12">
                                 {% comment %} {{contact_form.message}} {% endcomment %}
-                                {{contact_form.text}}
+                                {{form.text}}
                             </div>
                             {% comment %} <div class="form-group col-md-6">
                                 <input type="text" name="name" class="form-control" required="required" placeholder="نام">
