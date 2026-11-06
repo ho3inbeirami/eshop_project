@@ -2,16 +2,19 @@
     <div class="product-image-wrapper">
         <div class="single-products">
             <div class="productinfo text-center">
-                <img src="images/shop/product.jpg" alt="">
+                <img src={{product.image.url}} alt="">
                 <h2>{{product.title}} </h2>
                 <p> {{product.price}} </p>
-                <a href="{% url "product_detail_page" product.slug  %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                {% comment %} <a href="{% url "product_detail_page" product.slug  %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a> {% endcomment %}
+                <a href= {{product.get_absolute_url}} class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                
             </div>
             <div class="product-overlay">
                 <div class="overlay-content">
                     <h2>{{product.price}} ريال</h2>
                     <p>{{product.title}}</p>
-                    <a href="{% url "product_detail_page" product.slug  %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                    {% comment %} <a href="{% url "product_detail_page" product.slug  %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a> {% endcomment %}
+                    <a href= {{product.get_absolute_url}} class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
                 </div>
             </div>
         </div>

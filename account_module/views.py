@@ -6,6 +6,9 @@ from django.views import View
 from .models import User
 from . import forms
 from django.contrib.auth import login, logout
+from utils import email_service
+
+
 
 class RegisterView(View):
     def get(self,request):
@@ -31,8 +34,10 @@ class RegisterView(View):
                 user = User(username = email,email = email, email_active_code = get_random_string(72))
                 user.set_password(password)
                 user.save()
-                
                 # todo : send email activation code
+                                
+                email_service.Send_email('activation Email',user.email, {'user':user} , 'emails/active-account.html' )
+
                 
                 return HttpResponseRedirect(reverse('login_page'))
         
@@ -113,6 +118,7 @@ class ForgetPassWordView(View):
         if user:
             user.email_active_code
             # to do send Email To user
+            email_service.Send_email('activation Email',user.email, {'user':user} , 'emails/active-account.html' )
             return render(request , 'account_module/forget_pass_page.html',{'form':form,'message':'Email Was sent to user'})
         else:
             return HttpResponseRedirect(reverse('register_page'))
@@ -130,8 +136,14 @@ class SetPasswordView(View):
         if user:
             user_password = request.POST.get()
             user.set_password('password')
+            user.email_active_code=get_random_string(72)
             user.save()
             return  HttpResponseRedirect(reverse('login_page'))
         
         raise Http404()
     
+    
+class LogoutView(View):
+    def get(self,request):
+        logout(request)
+        return HttpResponseRedirect(reverse('login_page'))

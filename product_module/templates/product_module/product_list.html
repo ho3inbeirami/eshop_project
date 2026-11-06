@@ -16,11 +16,21 @@
                             {% include "product_module/includes/single_product.html" with product=product %}
 						{% endfor %}
                         <div class="clearfix" ></div>
+						
 						<ul class="pagination">
-							<li class="active"><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">»</a></li>
+
+							{% if page_obj.has_previous %}
+								<li><a href="?page={{page_obj.previous_page_number}}"><</a></li>
+							{% endif %}
+
+							{% for obj in paginator.page_range %}
+								<li class= {% if obj == page_obj.number %}"active"{% endif %} ><a href="?page={{obj}}">{{obj}}</a></li>
+							{% endfor %}
+							
+							{% if page_obj.has_next %}
+								<li><a href="?page={{page_obj.next_page_number}}">></a></li>
+							{% endif %}
+							
 						</ul>
 					</div><!--features_items-->
 				</div>

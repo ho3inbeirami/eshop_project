@@ -37,7 +37,7 @@ class Product(models.Model):
     category = models.ManyToManyField(
         ProductCategory, 
         related_name='product_categories')
-    
+    image= models.FileField(upload_to='images/products',verbose_name='image', null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete = models.CASCADE, verbose_name='brand', null= True, blank= True)
     
     price = models.IntegerField(verbose_name='price')
@@ -57,6 +57,8 @@ class Product(models.Model):
     def save(self,*args, **kwargs):
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+    
+
     
     class Meta:
         db_table = 'Products'
