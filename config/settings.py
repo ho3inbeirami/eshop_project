@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'product_module',
     'home_module',
     'ContactUs_module',
+    'account_module',
     
     # installed apps
     'django_render_partial',
@@ -94,6 +95,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
+AUTH_USER_MODEL = 'account_module.User'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -127,6 +130,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = 'medias/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
+
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
@@ -136,3 +143,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

@@ -18,3 +18,9 @@ class ContactUs(models.Model):
         db_table = 'ContactUs'
         verbose_name = 'Contact Us form'
         verbose_name_plural = 'Contact Us forms'
+        
+        
+        
+        
+class UserProfileModel(models.Model):
+    image = models.FileField(upload_to='images')

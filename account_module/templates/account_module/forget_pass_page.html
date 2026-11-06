@@ -1,0 +1,33 @@
+{% extends 'shared/_layot.html' %}
+
+
+{% block  title %}
+    login
+{% endblock  %}
+    
+
+
+
+
+{% block content %}
+    <div class="container">
+		<section id="form"><!--form-->
+			<div class="row">
+				<p class="col-sm-6 col-md-offset-3">{{message}}</p>
+				<div class="col-sm-6 col-md-offset-3">
+					<div class="signup-form"><!--sign up form-->
+						<h2>فراموشی رمز عبور</h2>
+						<form action="#" method="post">
+                            {% csrf_token %}
+                            {{form.email}}
+                            {{form.email.errors}}
+
+							<button type="submit" class="btn btn-default">فراموشی رمز عبور</button>
+						</form>
+					</div><!--/sign up form-->
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock  %}
+    

@@ -75,3 +75,7 @@ class ContactUsModelForm(forms.ModelForm):
             }),           
         }
     
+
+
+class UserProfileForm(forms.Form):
+    image = forms.FileField()

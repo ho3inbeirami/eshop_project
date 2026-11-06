@@ -3,5 +3,11 @@ from .views import *
 
 
 urlpatterns = [
-    path('contact-us/',ContactUsFormView.as_view(), name='ContactUs_page')
+    path('contact-us/',ContactUsFormView.as_view(), name='ContactUs_page'),
+    path('contact-us/fileupload',ContactUsFileUpload.as_view()),
+    path('contact-us/profileList',ProfileListView.as_view())
 ]
+
+
+
+
