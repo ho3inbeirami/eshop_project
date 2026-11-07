@@ -31,7 +31,7 @@ class RegisterView(View):
                 return render(request, 'account_module/register_page.html', context)
             
             else:
-                user = User(username = email,email = email, email_active_code = get_random_string(72))
+                user = User(username = email,email = email, is_active=False, email_active_code = get_random_string(72))
                 user.set_password(password)
                 user.save()
                 # todo : send email activation code

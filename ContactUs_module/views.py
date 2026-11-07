@@ -7,6 +7,7 @@ from django.views import View
 from django.views.generic.edit import FormView
 from django.views.generic import ListView
 from . import models
+from site_module.models import SiteSettings
 class ContactUsFormView(FormView):
     template_name = 'ContactUs_module/contactus_page.html'
     form_class = forms.ContactUsModelForm
@@ -16,40 +17,13 @@ class ContactUsFormView(FormView):
         form.save()
         print('form saved !!!')
         return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        site = SiteSettings.objects.filter(is_main_setting=True).first()
+        context["site"] = site
+        return context
     
 
-
-
-def save_files(f):
-    with open('temp/image.png', 'wb+') as des:
-        for chunk in f.chunks():
-            des.write(chunk)
-    print('file saved')
-
-
-
-class ContactUsFileUpload(View):
-    def get(self,request):
-        
-        context = {'form':forms.UserProfileForm()}
-        return render(request, 'ContactUs_module/upload.html',context)
-    
-    def post(self,request):
-        
-        form_data = forms.UserProfileForm(request.POST,request.FILES)
-        if form_data.is_valid():
-            profile = models.UserProfileModel(image = request.FILES['image'])
-            profile.save()
-        context = {'form':form_data}
-        
-        return render(request, 'ContactUs_module/upload.html',context)
-        
-
-
-class ProfileListView(ListView):
-    template_name = 'ContactUs_module/profile_list.html'
-    model = models.UserProfileModel
-    context_object_name = 'profiles'
 
 
 class ContactUsView(View):
