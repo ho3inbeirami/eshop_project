@@ -73,6 +73,7 @@ class LoginView(View):
                 else:
                     #wrong password
                     form.add_error('password','login data is invalid')
+                    
                     context = {'form':form}
                     return render(request, 'account_module/login_page.html', context)
             else:
@@ -118,7 +119,7 @@ class ForgetPassWordView(View):
         if user:
             user.email_active_code
             # to do send Email To user
-            email_service.Send_email('activation Email',user.email, {'user':user} , 'emails/active-account.html' )
+            email_service.Send_email('activation Email',user.email, {'user':user} , 'emails/forget-pass.html' )
             return render(request , 'account_module/forget_pass_page.html',{'form':form,'message':'Email Was sent to user'})
         else:
             return HttpResponseRedirect(reverse('register_page'))

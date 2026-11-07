@@ -2745,3 +2745,7 @@ textarea {
 .contact-info .social-networks ul li a:hover {
   color: #FE980F;
 }
+
+.form_alert ul li {
+  color: red;
+}

@@ -20,9 +20,13 @@
 						<form action="#" method="post">
                             {% csrf_token %}
                             {{form.email}}
-                            {{form.email.errors}}
+							<div class='form_alert'>
+                                {{form.email.errors}}
+							</div>
                             {{form.password}}
-                            {{form.password.errors}}
+							<div class='form_alert'>
+                                {{form.password.errors}}
+							</div>
 							<button type="submit" class="btn btn-default">ورود</button>
 						</form>
 						<p> <a href="{% url 'forget_password_page' %}" > فراموشی رمز عبور </a> </p>
