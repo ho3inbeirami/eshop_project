@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views .generic import TemplateView
 from site_module.models import SiteSettings,FooterBox,FooterBoxLink
-# Create your views here.
+from . import models
 
 
 def index_page(request):
@@ -9,11 +9,12 @@ def index_page(request):
 
 class HomeView(TemplateView):
     template_name = 'home_module/index.html'
+    sliders = models.Slider.objects.filter(is_active=True)
     
-    # def get_context_data(self, **kwargs):
-    #     context =  super().get_context_data(**kwargs)
-    #     context['data'] = 'this data is sent to home page'
-    #     return context
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['sliders'] = self.sliders
+        return context
 
 def header_component(request):
     site = SiteSettings.objects.filter(is_main_setting = True).first()

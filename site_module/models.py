@@ -49,3 +49,5 @@ class FooterBoxLink(models.Model):
     class Meta:
         verbose_name = 'Footer link'
         verbose_name_plural = 'Footer links'
+        
+        
