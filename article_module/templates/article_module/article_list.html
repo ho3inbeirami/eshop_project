@@ -1,8 +1,10 @@
 {% extends 'shared/_layot.html' %}
 {% load thumbnail %}
 {% load static %}
+{% load poll_extras %}
+{% load render_partial %}
 {% block title %}Articles{% endblock  %}
-    
+
 
 
 {% block content %}
@@ -19,17 +21,17 @@
                                 <h3>{{article.title}}</h3>
                                 <div class="post-meta">
                                     <ul>
-                                        <li><i class="fa fa-user"></i> کاربـر 1</li>
-                                        <li><i class="fa fa-clock-o"></i> 17:20 ب.ظ</li>
-                                        <li><i class="fa fa-calendar"></i> 28 تیـر 1397</li>
+                                        <li><i class="fa fa-user"></i>{{article.author}}</li>
+                                        <li><i class="fa fa-clock-o"></i> {{article.datetime.time}}</li>
+                                        <li><i class="fa fa-calendar"></i> {{article.datetime.date}}</li>
                                     </ul>
 
                                     <span>
+                                    
+                                        {% for  _ in article.rating|get_range %}
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
+                                        {% endfor %}
+
                                     </span>
                                 </div>
                                 <a href="">
@@ -67,87 +69,9 @@
 				<div class="col-sm-3">
 					<div class="left-sidebar">
 						<h2>Articles Category</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											دسته 1
-										</a>
-									</h4>
-								</div>
-								<div id="sportswear" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">محصول 1 </a></li>
-											<li><a href="">محصول 2 </a></li>
-											<li><a href="">محصول 3 </a></li>
-											<li><a href="">محصول 4</a></li>
-											<li><a href="">محصول 5</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											دسته 2
-										</a>
-									</h4>
-								</div>
-								<div id="mens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">محصول 1 </a></li>
-											<li><a href="">محصول 2 </a></li>
-											<li><a href="">محصول 3 </a></li>
-											<li><a href="">محصول 4</a></li>
-											<li><a href="">محصول 5</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 1</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 2</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 3</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 4</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 5</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 6</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">محصول 7</a></h4>
-								</div>
-							</div>
-						</div><!--/category-productsr-->
-					
+
+                        {% render_partial 'article_module.views.article_category_component'  %}
+{% comment %} 
 						<div class="brands_products"><!--brands_products-->
 							<h2>برنـد ها</h2>
 							<div class="brands-name">
@@ -163,7 +87,7 @@
 						
 						<div class="shipping text-center"><!--shipping-->
 							<img src="{% static 'images/home/shipping.jpg' %}" alt="">
-						</div><!--/shipping-->
+						</div><!--/shipping--> {% endcomment %}
 						
 					</div>
 				</div>

@@ -8,7 +8,7 @@ class ArticleCategory(models.Model):
     title = models.CharField(max_length=300, verbose_name='Title')
     url_title = models.CharField(max_length=300, verbose_name='Url Title', unique=True)
     is_active = models.BooleanField(default=True, verbose_name='Active / de Active')
-    parent =models.ForeignKey('ArticleCategory', on_delete=models.CASCADE, verbose_name='parent Category', null=True,blank=True)
+    parent =models.ForeignKey('ArticleCategory', on_delete=models.CASCADE, verbose_name='parent Category', null=True,blank=True, related_name='sub_categories')
     
     def __str__(self):
         return self.title
@@ -26,6 +26,9 @@ class Article(models.Model):
     is_active= models.BooleanField(verbose_name='active / deactive', default=True)
     selected_categories = models.ManyToManyField(ArticleCategory, verbose_name='Category')
     author = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='author', null=True, blank=True)
+    datetime = models.DateTimeField(verbose_name='datatime', auto_now_add=True)
+    rating = models.PositiveIntegerField(verbose_name='rating', default=1)
+    
     def __str__(self):
         return self.title
     
