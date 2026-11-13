@@ -1,11 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Article,ArticleCategory
+from .models import Article,ArticleCategory, ArticleComments
 
 from django.views.generic import ListView
 from django.views import View
-
+from django.http import HttpResponse
 
 class ArticleListView(ListView):
     model = Article
@@ -36,4 +36,31 @@ def article_category_component(request):
 class ArticleDetailView(View):
     def get(self,request,pk):
         single = Article.objects.filter(id = pk, is_active=True).first()
-        return render(request, 'article_module/article_detail.html' ,{'single':single})
+        context = {
+            'single':single,
+            'main_comments':ArticleComments.objects.filter(article_id =pk,parent_id=None).order_by('-created_date').prefetch_related('parent')
+            }
+        
+        return render(request, 'article_module/article_detail.html' ,context)
+    
+    
+    
+
+
+def add_article_comment(request: HttpResponse):
+    
+    if request.user.is_authenticated:
+        
+        comment = request.GET.get('comment')
+        article_id = request.GET.get('article_id')
+        parent = request.GET.get('parent_id')
+        print(parent)
+        obj = ArticleComments(message=comment, article_id = article_id , user = request.user , parent_id = parent)
+        obj.save()
+        context = {
+            'main_comments':ArticleComments.objects.filter(article_id =article_id,parent_id=None).order_by('-created_date').prefetch_related('parent'),
+            
+        }
+        return  render(request,'article_module/includes/comment_box.html',context)
+    
+    return  HttpResponse("")

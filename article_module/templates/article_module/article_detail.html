@@ -72,14 +72,22 @@
 						<a href=""><img src="{% static 'images/blog/socials.png' %}" alt=""></a>
 					</div><!--/socials-share--> {% endcomment %}
 
-					<div class="media commnets">
+					<div class="media">
 						<a class="pull-right" href="#">
-							<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="">
+							
+							{% if single.author.avatar %}
+								<img class="media-object" src= {{single.author.avatar.url}} alt="" width="100">
+
+							{% else %}
+								<img class="media-object" src= "{% static 'images/blog/Customer.jpg' %}" alt="" width="100">
+							{% endif %}
+								
+							
 						</a>
 						<div class="media-body">
-							<h4 class="media-heading">نویسنده 1</h4>
-							<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده ازلورملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-							<div class="blog-socials">
+							<h4 class="media-heading">author : {{single.author}}</h4>
+							<p>{{single.author.about}}</p>
+							{% comment %} <div class="blog-socials">
 								<ul>
 									<li><a href=""><i class="fa fa-facebook"></i></a></li>
 									<li><a href=""><i class="fa fa-twitter"></i></a></li>
@@ -87,91 +95,96 @@
 									<li><a href=""><i class="fa fa-google-plus"></i></a></li>
 								</ul>
 								<a class="btn btn-primary" href="">سایـر مطالب نویسنده</a>
-							</div>
+							</div> {% endcomment %}
 						</div>
+
 					</div><!--Comments-->
-					<div class="response-area">
+					
+					<div class="response-area" id="response_area">
 						<h2>پاسخ ها (3)</h2>
 						<ul class="media-list">
-							<li class="media">
+
+							
+							{% for main_comment in main_comments %}
+								<li class="media">
+									<a class="pull-right" href="#">
+										
+										{% if main_article.user.avatar %}
+											<img class="media-object" src="{{main_article.user.avatar.url}}" alt="" width ="100">
+
+										{% else %}
+											<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="" width ="100">
+										{% endif %}
+											
+										
+									</a>
+									<div class="media-body">
+										<ul class="sinlge-post-meta">
+											<li><i class="fa fa-user"></i>{{main_comment.user}}</li>
+											<li><i class="fa fa-clock-o"></i>{{main_comment.created_date.time}}</li>
+											<li><i class="fa fa-calendar"></i>{{main_comment.created_date.date}}</li>
+										</ul>
+										<p>{{main_comment.message}}</p>
+										<a class="btn btn-primary" onclick="get_patent_id({{main_comment.id}})"><i class="fa fa-reply"></i>پاسـخ</a>
+									</div>
+								</li>
 								
-								<a class="pull-right" href="#">
-									<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="">
-								</a>
-								<div class="media-body">
-									<ul class="sinlge-post-meta">
-										<li><i class="fa fa-user"></i>مشتـری شمـاره 1</li>
-										<li><i class="fa fa-clock-o"></i> 13:33 ب.ظ</li>
-										<li><i class="fa fa-calendar"></i> 25 تیـر 1397</li>
-									</ul>
-									<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده ازلورملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-									<a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a>
-								</div>
-							</li>
-							<li class="media second-media">
-								<a class="pull-right" href="#">
-									<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="">
-								</a>
-								<div class="media-body">
-									<ul class="sinlge-post-meta">
-										<li><i class="fa fa-user"></i>مشتـری شمـاره 1</li>
-										<li><i class="fa fa-clock-o"></i> 13:33 ب.ظ</li>
-										<li><i class="fa fa-calendar"></i> 25 تیـر 1397</li>
-									</ul>
-									<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده ازلورملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-									<a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a>
-								</div>
-							</li>
-							<li class="media">
-								<a class="pull-right" href="#">
-									<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="">
-								</a>
-								<div class="media-body">
-									<ul class="sinlge-post-meta">
-										<li><i class="fa fa-user"></i>مشتـری شمـاره 1</li>
-										<li><i class="fa fa-clock-o"></i> 13:33 ب.ظ</li>
-										<li><i class="fa fa-calendar"></i> 25 تیـر 1397</li>
-									</ul>
-									<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده ازلورملورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-									<a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a>
-								</div>
-							</li>
+									{% for sub in main_comment.sub_comments.all %}
+										
+									
+										<li class="media second-media">
+											<a class="pull-right" href="#">
+												{% if sub.user.avatar %}
+													<img class="media-object" src="{{sub.user.avatar.url}}" alt="" width ="100">
+
+												{% else %}
+													<img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="" width ="100">
+												{% endif %}
+											</a>
+											<div class="media-body">
+												<ul class="sinlge-post-meta">
+													<li><i class="fa fa-user"></i>{{sub.user}}</li>
+													<li><i class="fa fa-clock-o"></i>{{sub.created_date.time}}</li>
+													<li><i class="fa fa-calendar"></i>{{sub.created_date.date}}</li>
+												</ul>
+												<p>{{sub.message}}</p>
+												{% comment %} <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a> {% endcomment %}
+											</div>
+										</li>
+									{% endfor %}
+							{% endfor %}
+							 {% comment %} second-media {% endcomment %}
+								
+
+
 						</ul>					
 					</div><!--/Response-area-->
-					<div class="replay-box">
+					
+					{% if request.user.is_authenticated %}
+					<div class="replay-box" id ='replay-box'>
 						<div class="row">
 							
-							<div class="col-sm-8">
+							<div class="col-sm-12" id = 'scrollComment'>
+								<h2>نظـر خود را بنویسیـد</h2>
 								<div class="text-area">
 									<div class="blank-arrow">
 										<label>متن پیام</label>
 									</div>
-									<span>*</span>
-									<textarea name="message" rows="11"></textarea>
-									<a class="btn btn-primary" href="">ارسـال نظـر</a>
+									
+									<textarea name="message" rows="11" id='commentText'></textarea>
+									<input type="hidden" value="" id = "parent_id">
+									<a class="btn btn-primary" onclick="sendArticleComment({{single.id}})" >ارسـال نظـر</a>
 								</div>
 							</div>
-							<div class="col-sm-4">
-								<h2>نظـر خود را بنویسیـد</h2>
-								<form>
-									<div class="blank-arrow">
-										<label>نام</label>
-									</div>
-									<span>*</span>
-									<input type="text" placeholder="نام شما ...">
-									<div class="blank-arrow">
-										<label>آدرس ایمیـل</label>
-									</div>
-									<span>*</span>
-									<input type="email" placeholder="ایمیـل شما ...">
-									<div class="blank-arrow">
-										<label>وبسایت</label>
-									</div>
-									<input type="email" placeholder="آدرس وبسایـت">
-								</form>
-							</div>
+
 						</div>
 					</div><!--/Repaly Box-->
+					{% else %}
+					<p style = " font-size:2rem; text-align: left; ">for sent comment you must <a href="{% url "login_page" %}" >login</a></p>
+					{% endif %}
+						
+
+
 				</div>
 				
 				<div class="col-sm-3">

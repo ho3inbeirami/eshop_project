@@ -25,3 +25,10 @@ class ArticleAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
     
 admin.site.register(models.Article,ArticleAdmin)
+
+
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['article__title', 'user','message','parent']
+    #list_editable = [ 'slug','is_active',]
+
+admin.site.register(models.ArticleComments, ArticleAdmin)

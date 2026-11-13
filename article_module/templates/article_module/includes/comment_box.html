@@ -1,0 +1,61 @@
+{% load static %}
+
+<div class="response-area" id="response-area">
+    <h2>پاسخ ها (3)</h2>
+    <ul class="media-list">
+
+     
+        {% for main_comment in main_comments %}
+            <li class="media">
+                <a class="pull-right" href="#">
+                    
+                    {% if main_article.user.avatar %}
+                        <img class="media-object" src="{{main_article.user.avatar.url}}" alt="" width ="100">
+
+                    {% else %}
+                        <img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="" width ="100">
+                    {% endif %}
+                        
+                    
+                </a>
+                <div class="media-body">
+                    <ul class="sinlge-post-meta">
+                        <li><i class="fa fa-user"></i>{{main_comment.user}}</li>
+                        <li><i class="fa fa-clock-o"></i>{{main_comment.created_date.time}}</li>
+                        <li><i class="fa fa-calendar"></i>{{main_comment.created_date.date}}</li>
+                    </ul>
+                    <p>{{main_comment.message}}</p>
+                    <a class="btn btn-primary" onclick="get_patent_id({{main_comment.id}})"><i class="fa fa-reply"></i>پاسـخ</a>
+                </div>
+            </li>
+            
+                {% for sub in main_comment.sub_comments.all %}
+                    
+                
+                    <li class="media second-media">
+                        <a class="pull-right" href="#">
+                            {% if sub.user.avatar %}
+                                <img class="media-object" src="{{sub.user.avatar.url}}" alt="" width ="100">
+
+                            {% else %}
+                                <img class="media-object" src="{% static 'images/blog/Customer.jpg' %}" alt="" width ="100">
+                            {% endif %}
+                        </a>
+                        <div class="media-body">
+                            <ul class="sinlge-post-meta">
+                                <li><i class="fa fa-user"></i>{{sub.user}}</li>
+                                <li><i class="fa fa-clock-o"></i>{{sub.created_date.time}}</li>
+                                <li><i class="fa fa-calendar"></i>{{sub.created_date.date}}</li>
+                            </ul>
+                            <p>{{sub.message}}</p>
+                            {% comment %} <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a> {% endcomment %}
+                        </div>
+                    </li>
+                {% endfor %}
+        {% endfor %}
+        {% comment %} second-media {% endcomment %}
+            
+
+
+    </ul>					
+</div><!--/Response-area-->

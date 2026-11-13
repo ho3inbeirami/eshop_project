@@ -39,3 +39,22 @@ class Article(models.Model):
         
         
     
+    
+class ArticleComments(models.Model):
+    article = models.ForeignKey(Article,on_delete=models.CASCADE,verbose_name='Article',related_name='ArticleComment')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='user')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Created date')
+    parent = models.ForeignKey('ArticleComments',on_delete=models.CASCADE,verbose_name='Parent Article',null=True, blank=True, related_name='sub_comments')
+    message = models.TextField(verbose_name='message')
+    
+    def __str__(self):
+        return f'{self.article.title} ({self.user})'
+    class Meta:
+        
+        db_table = 'ArticleComments'
+        verbose_name ='ArticleComment'
+        verbose_name_plural = 'ArticleComments'
+        
+        
+    
+    

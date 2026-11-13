@@ -6,4 +6,5 @@ urlpatterns = [
 
     path('articles/<str:category>',views.ArticleListView.as_view() , name='articles_by_category_page'),
     
+    path('articles/add-article-comment/', views.add_article_comment, name='add_article_comment')
 ]
